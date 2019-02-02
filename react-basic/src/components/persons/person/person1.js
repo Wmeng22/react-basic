@@ -1,4 +1,5 @@
 
+//没有生命周期的写法（无状态组件）
 import React  from 'react';
 import './person.css'
 const person = (props) => {
