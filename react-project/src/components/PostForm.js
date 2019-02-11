@@ -2,6 +2,11 @@
 //有状态组价的写法
 
 import React, { Component } from 'react';
+import propTypes from  'prop-types'
+import { connect } from 'react-redux';
+import {createPost} from './../actions/postActions'
+
+
 class PostForm extends Component{
     //es6
     constructor(props){
@@ -19,18 +24,21 @@ class PostForm extends Component{
             title: this.state.title,
             body: this.state.body
         }
-        fetch("https://jsonplaceholder.typicode.com/posts",{
-            method: "POST",
-            headers: {
-                "content-type":"application/json"
-            },
-            body: JSON.stringify(post)
-        })
-        .then(res=> res.json())
-        .then(data => {
-            console.log(data)
+        //触发action
+        this.props.createPost(post)
+
+        // fetch("https://jsonplaceholder.typicode.com/posts",{
+        //     method: "POST",
+        //     headers: {
+        //         "content-type":"application/json"
+        //     },
+        //     body: JSON.stringify(post)
+        // })
+        // .then(res=> res.json())
+        // .then(data => {
+        //     console.log(data)
             
-        })
+        // })
     }
 
     onChange(e){
@@ -78,8 +86,13 @@ class PostForm extends Component{
     
 }
 
-export default PostForm;
+PostForm.propTypes ={
+    createPost: propTypes.func.isRequired
+}
 
+
+// export default PostForm;
+export default connect(null,{createPost}) (PostForm);
 
 
 
